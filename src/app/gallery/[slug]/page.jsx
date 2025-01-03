@@ -1,5 +1,15 @@
 import Image from "next/image";
 
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const response = await fetch("https://orion-apiv1.vercel.app/gallery");
+  const slugs = await response.json();
+  return slugs.map((data) => ({
+    slug: data.slug
+  }));
+}
+
 const getScreenshot = async (slug) => {
   const response = await fetch(`https://orion-apiv1.vercel.app/gallery/${slug}`, {
     next: {
