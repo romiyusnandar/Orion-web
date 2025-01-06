@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 bg-white bg-opacity-90 shadow-sm z-10">
-      <div className="max-w-full mx-auto md:px-4 lg:px-12 py-3">
+      <div className="max-w-full mx-auto md:px-4 lg:px-6 py-2">
         <div className="flex justify-between items-center px-4">
           <Link href="/" className="flex items-center space-x-2">
             <Image src="/orion-new.svg" width={70} height={70} alt="Orion Logo" />
@@ -23,7 +23,7 @@ const Navbar = () => {
             <NavLink href="/team">Team</NavLink>
             <NavLink href="/source">Source</NavLink>
             <NavLink href="/device">
-              <button className="bg-[#77c0d8] text-white px-4 py-2 rounded-md hover:bg-[#5fabc3] transition-colors duration-300">
+              <button className="bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md">
                 Download
               </button>
             </NavLink>
@@ -48,7 +48,7 @@ const Navbar = () => {
           <NavLink href="/team" mobile>Team</NavLink>
           <NavLink href="/source" mobile>Source</NavLink>
           <NavLink href="/device" mobile>
-          <button className="w-full text-left bg-[#77c0d8] text-white px-4 py-2 rounded-md hover:bg-[#5fabc3] transition-colors duration-300">
+          <button className="w-full text-left bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md">
             Device
           </button>
           </NavLink>
