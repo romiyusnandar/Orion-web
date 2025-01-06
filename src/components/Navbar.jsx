@@ -1,94 +1,74 @@
 "use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-
-// icons
-import { FaDownload } from "react-icons/fa";
-import { RxHamburgerMenu } from "react-icons/rx";
-import { IoMdClose } from "react-icons/io";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Navbar = () => {
-  const [color, setColor] = useState(false);
-  const [navbar, setNavbar] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const changeBg = () => {
-    if (window.scrollY > 10) {
-      setColor(true);
-    } else {
-      setColor(false);
-    }
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
-  useEffect(() => {
-    changeBg();
-    window.addEventListener("scroll", changeBg);
-    return () => window.removeEventListener("scroll", changeBg);
-  }, []);
-
   return (
-    <div>
-      <nav className={`navbar ${color ? "color-active" : ""}`}>
-        <div className="justify-between mx-auto container md:items-center md:flex px-4">
-          <div>
-            <div className="flex items-center justify-between md:block">
-              {/* LOGO */}
-              <Link href="/" className="justify-center items-center flex">
-                <Image src="/OrionOS.svg" width={40} height={40} alt="orion.svg" />
-                <h2 className="hidden md:block text-2xl font-bold ">OrionOS</h2>
-              </Link>
-              {/* HAMBURGER BUTTON FOR MOBILE */}
-              <div className="md:hidden">
-                <button
-                  className=""
-                  onClick={() => setNavbar(!navbar)}>
-                  {navbar ? (
-                    <IoMdClose size={25} />
-                  ) : (
-                    <RxHamburgerMenu size={25} />
-                  )}
-                </button>
-              </div>
-            </div>
+    <nav className="fixed top-0 left-0 right-0 bg-white bg-opacity-90 shadow-sm z-10">
+      <div className="max-w-full mx-auto md:px-4 lg:px-12 py-3">
+        <div className="flex justify-between items-center px-4">
+          <Link href="/" className="flex items-center space-x-2">
+            <Image src="/orion-new.svg" width={70} height={70} alt="Orion Logo" />
+          </Link>
+          <div className="hidden md:flex space-x-6 font-medium items-center">
+            <NavLink href="/team">Team</NavLink>
+            <NavLink href="/source">Source</NavLink>
+            <NavLink href="/device">
+              <button className="bg-[#77c0d8] text-white px-4 py-2 rounded-md hover:bg-[#5fabc3] transition-colors duration-300">
+                Download
+              </button>
+            </NavLink>
           </div>
-          <div>
-            <div
-              className={`flex-1 justify-self-center md:block md:pb-0 md:mt-0 ${
-                navbar ? 'block' : 'hidden'
-              }`}
-            >
-              <ul className="items-center justify-center md:flex">
-                <li className="pb-4 md:px-4 text-center">
-                  <Link href="/gallery" onClick={() => setNavbar(!navbar)}>
-                    Gallery
-                  </Link>
-                </li>
-                <li className="pb-4 md:px-4 text-center">
-                  <Link href="/team" onClick={() => setNavbar(!navbar)}>
-                    Team
-                  </Link>
-                </li>
-                <li className="pb-4 md:px-4 text-center">
-                  <Link href="/changelog" onClick={() => setNavbar(!navbar)}>
-                    Changelog
-                  </Link>
-                </li>
-                <li className="pb-4 md:px-4 text-center">
-                  <Link href="/download" onClick={() => setNavbar(!navbar)}
-                  className="btn flex items-center gap-2 bg-emerald-500 text-white px-3 py-2.5 rounded-lg justify-center"
-                  >
-                    <FaDownload />
-                    Download
-                  </Link>
-                </li>
-              </ul>
+          <button
+            onClick={toggleMenu}
+            className="md:hidden text-slate-950 hover:text-[#77c0d8] transition-transform duration-300 ease-in-out"
+          >
+            <div className="relative w-6 h-6">
+              <FiMenu size={24} className={`absolute transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <FiX size={24} className={`absolute transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`} />
             </div>
-          </div>
+          </button>
         </div>
-      </nav>
-    </div>
+      </div>
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'
+        }`}
+      >
+        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <NavLink href="/team" mobile>Team</NavLink>
+          <NavLink href="/source" mobile>Source</NavLink>
+          <NavLink href="/device" mobile>
+          <button className="w-full text-left bg-[#77c0d8] text-white px-4 py-2 rounded-md hover:bg-[#5fabc3] transition-colors duration-300">
+            Device
+          </button>
+          </NavLink>
+        </div>
+      </div>
+    </nav>
   );
 }
+
+const NavLink = ({ href, children, mobile }) => (
+  <Link
+    href={href}
+    className={`${
+      mobile
+        ? "block px-3 py-2 text-base font-medium text-slate-950 hover:text-[#77c0d8] hover:bg-gray-50"
+        : "text-sm text-slate-950 hover:text-[#77c0d8]"
+    } transition-colors`}
+  >
+    {children}
+  </Link>
+);
 
 export default Navbar;

@@ -14,7 +14,7 @@ const Page = () => {
     <div className="w-full min-h-screen py-44">
       <div className="container mx-auto">
         <div className="flex flex-col justify-center items-center space-x-2">
-          <Image src="/OrionOS.svg" alt="orion" width={100} height={100} />
+          <Image src="/orion-new.svg" alt="orion" width={100} height={100} />
           <h1 className="text-2xl font-bold pb-4">Ooops! page not found</h1>
           <button
           onClick={handleGoBack}
