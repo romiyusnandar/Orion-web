@@ -6,57 +6,58 @@ const page = () => {
       <div className="relative min-h-screen z-0">
         {/* <ParticlesComponent id="particles" /> */}
       </div>
-      
-      <div className="min-h-screen bg-white flex flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold text-center mb-8">Bukan stok-Android biasa.</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl px-4">
-        {/* Card 1 */}
-        <div className="bg-red-500 text-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center mr-4">
-              {/* Replace this icon */}
-              <span>👥</span>
-            </div>
-            <h2 className="text-xl font-semibold">Antusias</h2>
-          </div>
-          <p>Dikembangkan oleh pengembang yang memiliki antusias, dan berpengalaman pada bidangnya.</p>
-        </div>
 
-        {/* Card 2 */}
-        <div className="bg-red-500 text-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center mr-4">
-              {/* Replace this icon */}
-              <span>⚙️</span>
-            </div>
-            <h2 className="text-xl font-semibold">Kustomisasi</h2>
-          </div>
-          <p>Menggabungkan beberapa fitur dari berbagai sumber yang telah ditinjau dan dipercaya.</p>
-        </div>
+      <div className="flex items-center justify-between min-h-screen px-10 bg-pink-50">
+      {/* Bagian Teks di Kiri */}
+      <div className="max-w-md">
+        <h1 className="text-4xl font-bold text-black mb-4">
+          Terhubung dengan pengguna lainnya.
+        </h1>
+        <p className="text-gray-700">
+          Dapatkan informasi terbaru melalui Channel dan Grup diskusi yang telah
+          diikuti banyak pengguna.
+        </p>
+      </div>
 
-        {/* Card 3 */}
-        <div className="bg-red-500 text-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center mr-4">
-              {/* Replace this icon */}
-              <span>🧹</span>
-            </div>
-            <h2 className="text-xl font-semibold">Bersih</h2>
-          </div>
-          <p>Nikmati pengalaman baru menggunakan Android yang bebas iklan, bloatware, dan antarmuka yang bersih.</p>
-        </div>
+      {/* Bagian Tombol di Kanan */}
+      <div className="flex space-x-4">
+        {/* Tombol Channel */}
+        <button className="flex items-center px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
+          <span className="mr-2">Channel</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14.752 11.168l-7.064 3.528A1 1 0 016 13.844V6.993a1 1 0 01.647-.937l7.063-2.827a1 1 0 011.341.937v7.172a1 1 0 01-.299.733zm0 0L21 16m-6.248-4.832L21 8m-9 16H5a2 2 0 01-2-2v-4m0 0a2 2 0 012-2h6a2 2 0 012 2v4m0 0a2 2 0 002 2h4a2 2 0 002-2v-4m0 0a2 2 0 00-2-2h-6"
+            />
+          </svg>
+        </button>
 
-        {/* Card 4 */}
-        <div className="bg-red-500 text-white p-6 rounded-lg shadow-md">
-          <div className="flex items-center mb-4">
-            <div className="w-8 h-8 bg-white text-red-500 rounded-full flex items-center justify-center mr-4">
-              {/* Replace this icon */}
-              <span>🔒</span>
-            </div>
-            <h2 className="text-xl font-semibold">Privasi</h2>
-          </div>
-          <p>Memberikan akses penuh kepada pengguna untuk mengontrol dan memodifikasi perangkat.</p>
-        </div>
+        {/* Tombol Community */}
+        <button className="flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition">
+          <span className="mr-2">Community</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 20h5v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2h5M16 8a4 4 0 11-8 0 4 4 0 018 0zm6 12h-6m2-4h.01"
+            />
+          </svg>
+        </button>
       </div>
     </div>
     </main>

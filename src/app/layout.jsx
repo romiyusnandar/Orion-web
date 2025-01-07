@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={rubik.className}>
         <Navbar />
-        <main className="pt-24 md:pt-12">
+        <main className="pt-20 md:pt-12">
           {children}
         </main>
         <Analytics />

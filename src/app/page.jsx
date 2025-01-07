@@ -8,6 +8,8 @@ import { PiLockKeyFill } from "react-icons/pi";
 import { MdSecurityUpdateGood } from "react-icons/md";
 import { LuMinimize2 } from "react-icons/lu";
 import { PiHeartFill } from "react-icons/pi";
+import { BiLogoTelegram } from "react-icons/bi";
+import { PiChatFill } from "react-icons/pi";
 
 const Home = () => {
   return (
@@ -131,6 +133,42 @@ const Home = () => {
                 target="_blank">
                 Give support
                 <PiHeartFill size={22} className="ml-2"/>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Section 3 */}
+      <div className="px-4 sm:px-6 lg:px-16 py-16 lg:py-32 bg-cyan-50 z-0">
+        <div className="container mx-auto lg:px-6 sm:px-0">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+            <div className="mb-8 lg:mb-0 lg:mr-8">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Connect with a world of like-minded individuals.
+              </h1>
+              <p className="text-gray-900 max-w-xl">
+                Stay updated with the latest insights through Channels
+                and Discussion Groups trusted by a growing community.
+              </p>
+            </div>
+
+            <div className="flex flex-row gap-4 justify-start">
+              <Link
+                href="https://t.me/OrionOS_Update"
+                target="_blank"
+                className="px-4 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-200 flex items-center justify-center cursor-pointer"
+              >
+                Channel
+                <BiLogoTelegram size={22} className="ml-2" />
+              </Link>
+              <Link
+                href="https://t.me/OrionOS_prjkt"
+                target="_blank"
+                className="px-4 border-2 border-cyan-700 text-cyan-600 py-2 rounded-md font-medium hover:bg-cyan-100 transition-all duration-200 flex items-center justify-center cursor-pointer"
+              >
+                Discussion
+                <PiChatFill size={22} className="ml-2" />
               </Link>
             </div>
           </div>

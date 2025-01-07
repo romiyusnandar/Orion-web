@@ -29,7 +29,7 @@ const Navbar = () => {
             <NavLink href="/team">Team</NavLink>
             <NavLink href="/source">Source</NavLink>
             <NavLink href="/device">
-              <button className="bg-cyan-600 text-white px-4 py-3 hover:bg-cyan-700 transition-all duration-300 rounded-md flex justify-center items-center cursor-pointer">
+              <button className="bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md flex justify-center items-center cursor-pointer">
                 <span className="mr-2">Download</span>
                 <TbDownload size={22} />
               </button>
