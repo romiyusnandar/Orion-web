@@ -10,23 +10,36 @@ import { MdErrorOutline } from "react-icons/md";
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const response = await fetch("https://orion-apiv1.vercel.app/device");
-  const device = await response.json();
-  return device.map((data) => ({
-    slug: data.slug,
-  }));
-};
+  try {
+    const response = await fetch("https://orion-apiv1.vercel.app/device");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const device = await response.json();
+    return device.map((data) => ({
+      slug: data.slug,
+    }));
+  } catch (error) {
+    console.error("Error fetching device data:", error);
+    return []; // Return an empty array if there's an error
+  }
+}
 
 const getDeviceBySlug = async (slug) => {
-  const response = await fetch(`https://orion-apiv1.vercel.app/device/${slug}`, {
-    next: {
-      revalidate: 300
+  try {
+    const response = await fetch(`https://orion-apiv1.vercel.app/device/${slug}`, {
+      next: {
+        revalidate: 300
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  });
-  if (!response.ok) {
-    notFound();
-  };
-  return response.json();
+    return response.json();
+  } catch (error) {
+    console.error(`Error fetching device data for slug ${slug}:`, error);
+    return null;
+  }
 };
 
 const getChangelog = async(url) => {
@@ -44,7 +57,12 @@ const getChangelog = async(url) => {
 
 const Page = async ({params}) => {
   const data = await getDeviceBySlug(params.slug);
-  const changelog = await getChangelog(data.device_changelog);
+  if (!data) {
+    notFound();
+  }
+  const currentBuild = data.device_build[0];
+
+  const changelog = await getChangelog(currentBuild.device_changelog);
 
   return (
     <div className="download-page w-full py-24 bg-[#f6f8fd]">
@@ -54,7 +72,7 @@ const Page = async ({params}) => {
             {data.device_name}
           </h1>
           <p className="text-neutral-500 flex items-center gap-2">
-            {data.device_codename} | <MdOutlineAndroid size={20} className="text-emerald-500"/> {data.android_version} | {data.build_status}
+            {data.device_codename} | <MdOutlineAndroid size={20} className="text-emerald-500"/> {currentBuild.version} | {data.build_status}
           </p>
         </div>
 
@@ -72,7 +90,7 @@ const Page = async ({params}) => {
 
           <div className="flex flex-col gap-2 items-center">
             <Link
-            href={data.download_link}
+            href={currentBuild.download_link}
             className="inline-flex justify-center items-center gap-2 rounded-lg py-2 px-3 font-semibold outline-2
             outline-offset-2 transition-colors bg-emerald-500 text-white hover:bg-emerald-600 active:text-white/80 w-full">
               <FaDownload /> Download
