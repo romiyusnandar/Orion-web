@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
+import { TbDownload } from "react-icons/tb";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,20 +13,25 @@ const Navbar = () => {
     setIsOpen(!isOpen);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 bg-cyan-50 bg-opacity-90 shadow-sm z-10">
-      <div className="max-w-full mx-auto md:px-4 lg:px-6 py-2">
-        <div className="flex justify-between items-center px-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Image src="/orion-lg.png" width={60} height={60} alt="Orion Logo" />
+      <div className="max-w-full mx-auto md:px-4 lg:px-12 py-1">
+        <div className="flex justify-between items-center p-4">
+          <Link href="/" className="flex items-center space-x-2" onClick={closeMenu}>
+            <Image src="/orion-lg.png" width={50} height={50} alt="Orion Logo" />
             <span className="hidden md:block font-bold text-xl">Orion<span className="text-cyan-600">OS.</span></span>
           </Link>
-          <div className="hidden md:flex space-x-6 font-medium items-center">
+          <div className="hidden md:flex space-x-7 font-semibold items-center">
             <NavLink href="/team">Team</NavLink>
             <NavLink href="/source">Source</NavLink>
             <NavLink href="/device">
-              <button className="bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md">
-                Download
+              <button className="bg-cyan-600 text-white px-4 py-3 hover:bg-cyan-700 transition-all duration-300 rounded-md flex justify-center items-center cursor-pointer">
+                <span className="mr-2">Download</span>
+                <TbDownload size={22} />
               </button>
             </NavLink>
           </div>
@@ -46,12 +52,13 @@ const Navbar = () => {
         }`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <NavLink href="/team" mobile>Team</NavLink>
-          <NavLink href="/source" mobile>Source</NavLink>
-          <NavLink href="/device" mobile>
-          <button className="w-full text-left bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md">
-            Download
-          </button>
+          <NavLink href="/team" mobile onClick={closeMenu}>Team</NavLink>
+          <NavLink href="/source" mobile onClick={closeMenu}>Source</NavLink>
+          <NavLink href="/device" mobile onClick={closeMenu}>
+            <button className="w-full text-left bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md flex justify-center items-center cursor-pointer">
+              <span className="mr-2">Download</span>
+              <TbDownload size={22} />
+            </button>
           </NavLink>
         </div>
       </div>
@@ -59,14 +66,15 @@ const Navbar = () => {
   );
 }
 
-const NavLink = ({ href, children, mobile }) => (
+const NavLink = ({ href, children, mobile, onClick }) => (
   <Link
     href={href}
     className={`${
       mobile
-        ? "block px-3 py-2 text-base font-medium text-slate-950 hover:text-[#77c0d8] hover:bg-gray-50"
-        : "text-sm text-slate-950 hover:text-[#77c0d8]"
+        ? "block px-3 py-2 text-base font-medium text-slate-950 hover:text-cyan-700"
+        : "text-md text-slate-950 hover:text-cyan-700"
     } transition-colors`}
+    onClick={onClick}
   >
     {children}
   </Link>

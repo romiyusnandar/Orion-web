@@ -31,7 +31,7 @@ const DeviceList = async ({ brand }) => {
                       Maintainer: {data.maintainer_name}
                     </p>
                     <div className="w-full flex items-center justify-center">
-                      <Link href={`/download/${data.slug}`} className="w-full">
+                      <Link href={`/device/${data.slug}`} className="w-full">
                         <div className="mt-4 w-full flex justify-center items-center gap-2 bg-emerald-500
                         py-2 rounded-md shadow-sm text-white text-sm hover:bg-emerald-600 transition-all duration-300">
                           <FaDownload className="mr-1" />
