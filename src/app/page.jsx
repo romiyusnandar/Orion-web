@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <main className="min-h-screen flex flex-col">
       {/* Section 1 */}
-      <div className="relative min-h-screen bg-gradient-to-br z-[-1]">
+      <div className="relative min-h-screen bg-gradient-to-br z-0">
         <ParticlesComponent id="particles" />
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-7xl">
@@ -24,17 +24,17 @@ const Home = () => {
                   Developing a clean, bloatware-free, and device-friendly
                   Android operating system that pushes the boundaries of performance.
                 </p>
-                <div className="flex flex-row gap-4 justify-start">
+                <div className="flex flex-row gap-4 justify-start relative z-10">
                   <Link
                     href="/device"
-                    className="w-32 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center"
+                    className="w-32 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center cursor-pointer"
                   >
                     <span className="mr-2">Download</span>
                     <TbDownload size={22} />
                   </Link>
                   <Link
                     href="/source"
-                    className="w-28 border-2 border-cyan-600 text-cyan-600 py-2 rounded-md font-medium hover:bg-cyan-50 transition-all duration-200 shadow-md hover:shadow-lg flex justify-center items-center"
+                    className="w-28 border-2 border-cyan-600 text-cyan-600 py-2 rounded-md font-medium hover:bg-cyan-50 transition-all duration-200 shadow-md hover:shadow-lg flex justify-center items-center cursor-pointer"
                   >
                     <span className="mr-2">Source</span>
                     <PiCodeFill size={22} />
@@ -45,7 +45,7 @@ const Home = () => {
               {/* Image Section */}
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="z-10 flex gap-6 justify-center">
-                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden ">
                     <Image
                       src="/orion-fw.jpg"
                       alt="Phone preview 1"
@@ -53,7 +53,7 @@ const Home = () => {
                       height={320}
                     />
                   </div>
-                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden ">
                     <Image
                       src="/orion-fw.jpg"
                       alt="Phone preview 2"
