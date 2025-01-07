@@ -3,6 +3,10 @@ import Link from "next/link";
 import { PiCodeFill } from "react-icons/pi";
 import { TbDownload } from "react-icons/tb";
 import ParticlesComponent from "../components/Particles";
+import { PiRocketLaunchFill } from "react-icons/pi";
+import { PiLockKeyFill } from "react-icons/pi";
+import { MdSecurityUpdateGood } from "react-icons/md";
+import { LuMinimize2 } from "react-icons/lu";
 
 const Home = () => {
   return (
@@ -69,12 +73,53 @@ const Home = () => {
       </div>
 
       {/* Section 2 */}
-      <div className="bg-gray-50 py-16 px-4 sm:px-6 lg:px-8 z-20">
+      <div className="bg-white min-h-screen py-16 px-4 sm:px-6 lg:px-8 z-0">
         <div className="container mx-auto max-w-7xl">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">More Features</h2>
-          <p className="text-gray-600 mb-4">
-            Discover the extensive features and customization options available with OrionOS.
-          </p>
+          <div className="flex flex-col items-center justify-center">
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl mb-16">Why Choose Orion<span className="text-cyan-600">OS</span>?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+              {/* card 1 */}
+              <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center mb-4">
+                    <PiRocketLaunchFill size={32} />
+                    <h3 className="text-xl font-semibold ml-4">Lightweight</h3>
+                  </div>
+                  <p className="mb-4">Engineered to run fast and efficiently, without dragging down your device. Experience the power of Android in its lightest form.</p>
+                </div>
+              </div>
+              {/* card 2 */}
+              <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center mb-4">
+                    <PiLockKeyFill size={32} />
+                    <h3 className="text-xl font-semibold ml-4">Secure</h3>
+                  </div>
+                  <p className="mb-4">Your privacy comes first. With advanced protection, rest assured your device is always in safe hands.</p>
+                </div>
+              </div>
+              {/* card 3 */}
+              <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center mb-4">
+                    <MdSecurityUpdateGood size={32} />
+                    <h3 className="text-xl font-semibold ml-4">Up-to-Date</h3>
+                  </div>
+                  <p className="mb-4">Receive the latest features and security updates regularly. We keep your device relevant and ready for what's next.</p>
+                </div>
+              </div>
+              {/* card 4 */}
+              <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center mb-4">
+                    <LuMinimize2 size={32} />
+                    <h3 className="text-xl font-semibold ml-4">Minimalist</h3>
+                  </div>
+                  <p className="mb-4">Designed with a focus on elegance and usability. Say goodbye to clutter and embrace a sleek, distraction-free interface.</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
