@@ -7,6 +7,7 @@ import { PiRocketLaunchFill } from "react-icons/pi";
 import { PiLockKeyFill } from "react-icons/pi";
 import { MdSecurityUpdateGood } from "react-icons/md";
 import { LuMinimize2 } from "react-icons/lu";
+import { PiHeartFill } from "react-icons/pi";
 
 const Home = () => {
   return (
@@ -77,7 +78,7 @@ const Home = () => {
         <div className="container mx-auto max-w-7xl">
           <div className="flex flex-col items-center justify-center">
             <h2 className="text-3xl font-bold text-gray-900 md:text-4xl mb-16">Why Choose Orion<span className="text-cyan-600">OS</span>?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full mb-20">
               {/* card 1 */}
               <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-md flex flex-col justify-between h-full">
                 <div>
@@ -118,6 +119,19 @@ const Home = () => {
                   <p className="mb-4">Designed with a focus on elegance and usability. Say goodbye to clutter and embrace a sleek, distraction-free interface.</p>
                 </div>
               </div>
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 md:text-4xl mb-10">Completely<span className="text-cyan-600"> Free</span>. No Cost, No Catch.</h2>
+            <p className="text-gray-900 text-left md:text-center mb-10">Our operating system is completely free to use, empowering you to explore its full potential without limits—so long as it's not used for commercial
+              purposes. Even the smallest contribution helps keep this project and website thriving, ensuring it remains accessible to all.
+            </p>
+            <div className="w-full flex justify-start md:justify-center">
+              <Link
+                href="https://t.me/orionosdonate/7"
+                className="px-4 border-2 border-cyan-600 text-cyan-600 py-2 rounded-md font-medium hover:bg-cyan-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center cursor-pointer"
+                target="_blank">
+                Give support
+                <PiHeartFill size={22} className="ml-2"/>
+              </Link>
             </div>
           </div>
         </div>
