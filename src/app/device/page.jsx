@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getAllDevices, getDeviceByBrand } from './../../utils/api-libs';
+import { getAllDevices, getDeviceByBrand } from '../../utils/api-libs';
 import DeviceList from './DeviceList';
 import Loading from '../loading';
 import { SiXiaomi } from "react-icons/si";

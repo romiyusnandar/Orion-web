@@ -13,11 +13,12 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white bg-opacity-90 shadow-sm z-10">
+    <nav className="fixed top-0 left-0 right-0 bg-cyan-50 bg-opacity-90 shadow-sm z-10">
       <div className="max-w-full mx-auto md:px-4 lg:px-6 py-2">
         <div className="flex justify-between items-center px-4">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/orion-new.svg" width={70} height={70} alt="Orion Logo" />
+            <Image src="/orion-lg.png" width={60} height={60} alt="Orion Logo" />
+            <span className="hidden md:block font-bold text-xl">Orion<span className="text-cyan-600">OS.</span></span>
           </Link>
           <div className="hidden md:flex space-x-6 font-medium items-center">
             <NavLink href="/team">Team</NavLink>
@@ -30,7 +31,7 @@ const Navbar = () => {
           </div>
           <button
             onClick={toggleMenu}
-            className="md:hidden text-slate-950 hover:text-[#77c0d8] transition-transform duration-300 ease-in-out"
+            className="md:hidden text-slate-950 hover:text-cyan-700 transition-transform duration-300 ease-in-out"
           >
             <div className="relative w-6 h-6">
               <FiMenu size={24} className={`absolute transition-opacity duration-300 ease-in-out ${isOpen ? 'opacity-0' : 'opacity-100'}`} />
@@ -49,7 +50,7 @@ const Navbar = () => {
           <NavLink href="/source" mobile>Source</NavLink>
           <NavLink href="/device" mobile>
           <button className="w-full text-left bg-cyan-600 text-white px-4 py-2 hover:bg-cyan-700 transition-all duration-300 rounded-md">
-            Device
+            Download
           </button>
           </NavLink>
         </div>
