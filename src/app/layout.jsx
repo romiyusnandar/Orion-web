@@ -1,4 +1,4 @@
-import { Rubik } from "next/font/google";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
 import "./globals.css";
@@ -6,7 +6,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const rubik = Rubik({
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   // weight: ["400", "500", "600", "700", "800", "900"],
   // weight: ["100", "300", "400", "700", "900"],
@@ -20,7 +20,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={rubik.className}>
+      <body className={jakarta.className}>
         <Navbar />
         <main className="pt-20 md:pt-12">
           {children}
