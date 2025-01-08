@@ -1,5 +1,9 @@
-export async function getAllDevices(codename) {
-  const response = await fetch(`https://orion-apiv1.vercel.app/device/?${codename}`, {
+export async function getAllDevices(searchTerm = '') {
+  const url = searchTerm
+    ? `https://orion-apiv1.vercel.app/device/search?q=${encodeURIComponent(searchTerm)}`
+    : "https://orion-apiv1.vercel.app/device";
+
+  const response = await fetch(url, {
     next: {
       revalidate: 300
     }
