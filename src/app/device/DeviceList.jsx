@@ -1,53 +1,71 @@
-import { getDeviceByBrand } from "@/utils/api-libs";
+import { getAllDevices, getDeviceByBrand } from "@/utils/api-libs";
 import Link from 'next/link';
+import ParticlesComponent from "../../components/Particles";
+
 import { Suspense } from "react";
-import { FaDownload } from "react-icons/fa";
+import { FaDownload, FaSearch } from "react-icons/fa";
 import Loading from "../loading";
 
-const DeviceList = async ({ brand }) => {
-  const getDeviceBrand = await getDeviceByBrand(brand);
+const DeviceList = async () => {
+  const data = await getAllDevices();
 
   return (
-    <>
-      <div className="w-full bg-[#f6f8fd]">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 p-4 gap-10 md:gap-5">
-            {getDeviceBrand.map((data, index) => (
-              <div key={index} className="border rounded-lg p-8 md:p-4 border-neutral-300 shadow-md bg-white animate__animated animate__fadeInUp">
-                <div className="flex flex-col md:flex-row items-center justify-center">
-                  <div className="w-52 h-52 flex items-center justify-center overflow-hidden">
-                    <Suspense fallback={<Loading/>}>
-                    <img src={data.device_image} className="object-contain w-full h-full" alt={data.device_name} />
-                    </Suspense>
-                  </div>
-                  <div className="mt-4 px-4 flex flex-col justify-center items-center md:items-start w-full">
-                    <p className="bg-green-200 text-green-700 px-2 rounded-md text-sm">
-                      {data.official_status}
-                    </p>
-                    <h3 className="mt-4 font-semibold text-base">
-                      {data.device_name}
-                    </h3>
-                    <p className="text-base">
-                      Maintainer: {data.maintainer_name}
-                    </p>
-                    <div className="w-full flex items-center justify-center">
-                      <Link href={`/device/${data.slug}`} className="w-full">
-                        <div className="mt-4 w-full flex justify-center items-center gap-2 bg-emerald-500
-                        py-2 rounded-md shadow-sm text-white text-sm hover:bg-emerald-600 transition-all duration-300">
-                          <FaDownload className="mr-1" />
-                          Download
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
+    <div className="p-4 md:p-16">
+      <ParticlesComponent id="particles" />
+      <h1 className="relative text-2xl md:text-3xl font-bold mb-6">Devices</h1>
+      <div className="relative flex flex-col md:flex-row gap-4 md:gap-8">
+        <div className="bg-cyan-50 rounded-md p-4 md:p-6 w-full md:w-auto">
+          <div className="mb-6">
+            <label className="block mb-2 font-semibold text-gray-700">Codename</label>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search"
+                className="w-full text-cyan-600 border rounded-lg p-2 pl-10 focus:outline-none focus:ring-1 focus:ring-cyan-50"
+              />
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            </div>
+          </div>
+          <div>
+            <label className="block mb-2 font-semibold text-gray-700">Brand</label>
+            <div className="flex flex-wrap gap-2">
+              {["All", "Nothing", "Xiaomi"].map((brand) => (
+                <button
+                  key={brand}
+                  className={`py-2 px-4 rounded-md transition-colors ${
+                    brand === "All"
+                      ? "bg-cyan-600 text-white hover:bg-cyan-700"
+                      : "border-2 border-cyan-600 text-cyan-600 hover:bg-cyan-100"
+                  }`}
+                >
+                  {brand}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          {data.map((device) => (
+            <Link href={`/device/${device.slug}`} key={device.device_codename} className="bg-white opacity-90 hover:bg-cyan-50 rounded-md overflow-hidden transition-shadow duration-300 shadow-sm hover:shadow-md">
+              <div className="flex p-4">
+                <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 mr-4">
+                  <img
+                    src={device.device_image}
+                    alt={device.device_codename}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <h2 className="font-semibold text-base md:text-lg text-cyan-700">{device.device_name}</h2>
+                  <p className="text-xs md:text-sm text-gray-900">{device.device_codename}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
-};
+}
 
 export default DeviceList;
