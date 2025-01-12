@@ -40,6 +40,19 @@ const getDevName = async (slug) => {
 const Page = async ({ params }) => {
   const data = await getDevName(params.slug);
 
+  if (!data) {
+    return (
+      <div className="container min-h-screen mx-auto px-4 py-12 md:py-18">
+        <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-md overflow-hidden">
+          <div className="p-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-800">Developer not found</h2>
+            <p className="text-gray-600">The developer you are looking for does not exist.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container min-h-screen mx-auto px-4 py-12 md:py-18">
       <div className="max-w-3xl mx-auto bg-white shadow-lg rounded-md overflow-hidden">
