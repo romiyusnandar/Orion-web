@@ -1,67 +1,47 @@
-import ParticlesComponent from "../../components/Particles";
+import Image from 'next/image';
+import Link from 'next/link';
 
-const page = () => {
+const getSource = async () => {
+
+  const response = await fetch("https://orion-apiv1.vercel.app/source", {
+    next: {
+      revalidate: 300 // caching for 5 minutes (60*5)
+    }
+  });
+  return response.json();
+};
+
+const page = async () => {
+  const data = await getSource();
   return (
-    <main className="min-h-screen">
-      <div className="relative min-h-screen z-0">
-        {/* <ParticlesComponent id="particles" /> */}
-      </div>
-
-      <div className="flex items-center justify-between min-h-screen px-10 bg-pink-50">
-      {/* Bagian Teks di Kiri */}
-      <div className="max-w-md">
-        <h1 className="text-4xl font-bold text-black mb-4">
-          Terhubung dengan pengguna lainnya.
-        </h1>
-        <p className="text-gray-700">
-          Dapatkan informasi terbaru melalui Channel dan Grup diskusi yang telah
-          diikuti banyak pengguna.
-        </p>
-      </div>
-
-      {/* Bagian Tombol di Kanan */}
-      <div className="flex space-x-4">
-        {/* Tombol Channel */}
-        <button className="flex items-center px-6 py-3 bg-red-500 text-white rounded-md hover:bg-red-600 transition">
-          <span className="mr-2">Channel</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M14.752 11.168l-7.064 3.528A1 1 0 016 13.844V6.993a1 1 0 01.647-.937l7.063-2.827a1 1 0 011.341.937v7.172a1 1 0 01-.299.733zm0 0L21 16m-6.248-4.832L21 8m-9 16H5a2 2 0 01-2-2v-4m0 0a2 2 0 012-2h6a2 2 0 012 2v4m0 0a2 2 0 002 2h4a2 2 0 002-2v-4m0 0a2 2 0 00-2-2h-6"
-            />
-          </svg>
-        </button>
-
-        {/* Tombol Community */}
-        <button className="flex items-center px-6 py-3 bg-black text-white rounded-md hover:bg-gray-800 transition">
-          <span className="mr-2">Community</span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M17 20h5v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2h5M16 8a4 4 0 11-8 0 4 4 0 018 0zm6 12h-6m2-4h.01"
-            />
-          </svg>
-        </button>
+    <div className="p-4 min-h-0 md:min-h-screen md:p-16">
+      <h1 className="text-2xl md:text-3xl font-bold mb-8 mt-4">Source</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        {data.map((source, index) => (
+          <Link href={`/source/${source.slug}`} key={index}>
+            <div className="cursor-pointer flex flex-col">
+              <div className="relative h-48 group w-full">
+                <Image
+                  src={source.img}
+                  alt={source.codename}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-md"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
+                  <span className="text-white font-bold text-lg">{source.codename}</span>
+                </div>
+              </div>
+              <div className="pt-2 flex flex-col flex-grow">
+                <h2 className="text-xl font-semibold text-gray-800">{source.codename}</h2>
+                <p className="text-gray-600">{source.date}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
-    </main>
-  );
+  )
 }
 
 export default page;

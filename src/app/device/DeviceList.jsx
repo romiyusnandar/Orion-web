@@ -67,7 +67,7 @@ const DeviceList = () => {
       <div className="py-8">
         <h1 className="text-2xl md:text-3xl font-bold">Devices</h1>
         <p className="text-lg mb-1 md:mb-6">
-          Explore our lineup of {totalDevices !== null ? totalDevices : "< counting />..."} officially launched devices.
+          Explore our lineup of {totalDevices !== null ? totalDevices : "< counting />"} officially launched devices.
         </p>
       </div>
       <div className="flex flex-col lg:flex-row gap-4 md:gap-8">
@@ -88,7 +88,7 @@ const DeviceList = () => {
             </div>
             <div>
               <label className="block mb-2 font-semibold text-gray-700">Brand</label>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 sticky">
                 {["All", "Nothing-phone", "Xiaomi"].map((brand) => (
                   <button
                     key={brand}
@@ -111,7 +111,7 @@ const DeviceList = () => {
             <Loading />
           ) : devices.length > 0 ? (
             devices.map((device) => (
-              <Link href={`/device/${device.slug}`} key={device.device_codename} className="bg-white opacity-90 hover:bg-cyan-50 rounded-md overflow-hidden transition-shadow duration-300 shadow-sm hover:shadow-md">
+              <Link href={`/device/${device.slug}`} key={device.device_codename} className="bg-white hover:bg-cyan-50 rounded-md overflow-hidden transition-shadow duration-300 shadow-sm hover:shadow-md">
                 <div className="flex p-4">
                   <div className="w-20 h-20 md:w-24 md:h-24 flex-shrink-0 mr-4">
                     <img
