@@ -37,7 +37,7 @@ const getDevName = async (slug) => {
   }
 }
 
-const page = async ({ params }) => {
+const Page = async ({ params }) => {
   const data = await getDevName(params.slug);
 
   return (
@@ -75,4 +75,4 @@ const page = async ({ params }) => {
   );
 };
 
-export default page;
+export default Page;
