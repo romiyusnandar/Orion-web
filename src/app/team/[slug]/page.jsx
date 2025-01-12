@@ -9,8 +9,8 @@ export async function generateStaticParams() {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const developer = await response.json();
-    return developer.map((data) => ({
+    const developers = await response.json();
+    return developers.map((data) => ({
       slug: data.slug,
     }));
   } catch (error) {
@@ -64,7 +64,7 @@ const page = async ({ params }) => {
               <a href={data.social.telegram} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
                 <FaTelegram size={24} />
               </a>
-              <a href={data.social.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
+              <a href={data.social.donate} target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
                 <FaDonate size={24} />
               </a>
             </div>
