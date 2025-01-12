@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-cyan-50 bg-opacity-90 shadow-sm z-10">
+    <nav className="fixed top-0 left-0 right-0 bg-cyan-50 shadow-sm z-10">
       <div className="max-w-full mx-auto md:px-4 lg:px-12 py-1">
         <div className="flex justify-between items-center p-4">
           <Link href="/" className="flex items-center space-x-2" onClick={closeMenu}>
