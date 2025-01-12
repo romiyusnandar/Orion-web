@@ -19,7 +19,7 @@ const TeamList = async () => {
       <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">Our Amazing Team</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {data.map((dev, index) => (
-          <Link href={`/team/${dev.name}`} key={index}>
+          <Link href={`/team/${dev.slug}`} key={index}>
             <div className="dev-container bg-white shadow-lg rounded-xl overflow-hidden transform transition duration-300 hover:scale-105 cursor-pointer flex flex-col">
               <div className="relative h-48 bg-gradient-to-r from-cyan-500 to-purple-600">
                 <Image

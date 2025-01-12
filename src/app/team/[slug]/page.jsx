@@ -19,9 +19,9 @@ export async function generateStaticParams() {
   }
 }
 
-const getDevName = async (name) => {
+const getDevName = async (slug) => {
   try {
-    const response = await fetch(`https://orion-apiv1.vercel.app/developer/${name}`, {
+    const response = await fetch(`https://orion-apiv1.vercel.app/developer/${slug}`, {
       next: {
         revalidate: 300
       }
@@ -38,7 +38,7 @@ const getDevName = async (name) => {
 }
 
 const page = async ({ params }) => {
-  const data = await getDevName(params.name);
+  const data = await getDevName(params.slug);
 
   return (
     <div className="container min-h-screen mx-auto px-4 py-12 md:py-18">
