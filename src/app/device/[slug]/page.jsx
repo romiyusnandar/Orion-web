@@ -1,123 +1,123 @@
+"use client";
+
 import Link from "next/link";
-import { marked } from 'marked';
-import { notFound } from "next/navigation";
-import { FaDownload } from "react-icons/fa";
-import { MdOutlineAndroid } from "react-icons/md";
-import { TbDeviceMobileCode } from "react-icons/tb"
-import { MdOutlineScreenshot } from "react-icons/md";
-import { MdErrorOutline } from "react-icons/md";
+import { TbDownload } from "react-icons/tb";
+import { useState } from 'react';
+import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import useSWR from 'swr';
 
-export const dynamicParams = true;
 
-export async function generateStaticParams() {
-  try {
-    const response = await fetch("https://orion-apiv1.vercel.app/device");
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const device = await response.json();
-    return device.map((data) => ({
-      slug: data.slug,
-    }));
-  } catch (error) {
-    console.error("Error fetching device data:", error);
-    return []; // Return an empty array if there's an error
-  }
-}
-
-const getDeviceBySlug = async (slug) => {
-  try {
-    const response = await fetch(`https://orion-apiv1.vercel.app/device/${slug}`, {
-      next: {
-        revalidate: 300
-      }
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  } catch (error) {
-    console.error(`Error fetching device data for slug ${slug}:`, error);
-    return null;
-  }
-};
-
-const getChangelog = async(url) => {
-  const changelog = await fetch(url, {
-    next: {
-      revalidate: 300
-    }
-  });
-  if (!changelog.ok) {
-    return "error"
-  };
-  const changelogText = await changelog.text();
-  return marked(changelogText);
-}
+const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 const Page = async ({params}) => {
-  const data = await getDeviceBySlug(params.slug);
-  if (!data) {
-    notFound();
-  }
-  const currentBuild = data.device_build[0];
+  const [selectedBuildIndex, setSelectedBuildIndex] = useState(0);
 
-  const changelog = await getChangelog(currentBuild.device_changelog);
+  const { data: device, error: deviceError } = useSWR(
+    `https://orion-apiv1.vercel.app/device/${params.slug}`,
+    fetcher
+  );
+
+  const { data: changelog, error: changelogError } = useSWR(
+    () => device && device.device_build[selectedBuildIndex].device_changelog,
+    url => fetch(url).then(res => res.text())
+  );
+
+  if (deviceError) <p className="text-center text-xl font-medium py-16 min-h-screen">Failed to load data.</p>;
+  if (!device) return <p className="text-center text-xl font-medium py-16 min-h-screen">Loading...</p>;
+
+  const handleTabClick = (index) => {
+    setSelectedBuildIndex(index);
+  };
+
+  const selectedBuild = device.device_build[selectedBuildIndex];
 
   return (
-    <div className="download-page w-full py-24 bg-[#f6f8fd]">
-      <div className="container mx-auto">
-        <div className="device flex flex-col gap-2 p-4 animate__animated animate__fadeInLeft animate__delay-1s">
-          <h1 className="font-bold text-2xl text-neutral-800">
-            {data.device_name}
-          </h1>
-          <p className="text-neutral-500 flex items-center gap-2">
-            {data.device_codename} | <MdOutlineAndroid size={20} className="text-emerald-500"/> {currentBuild.version} | {data.build_status}
-          </p>
-        </div>
+    <div className="mx-auto px-4 md:px-8 py-10 md:py-24">
+      <div className="max-w-6xl px-0 md:px-4">
+        <div className="flex flex-col lg:flex-row lg:space-x-8">
+          {/* Left Column */}
+          <div className="lg:w-1/2 p-0 md:p-6">
+            {/* Header Section */}
+            <div className="flex flex-col md:flex-row md:items-center md:space-x-6">
+              <div className="w-full md:w-auto flex justify-center md:justify-start mb-4 md:mb-0">
+                <Image
+                  src={device.device_image}
+                  alt={device.device_name}
+                  width={128}
+                  height={128}
+                  className="object-contain rounded-lg shadow-md max-h-36 w-auto"
+                />
+              </div>
+              <div className="mt-4 md:mt-0 text-center md:text-left">
+                <h1 className="text-2xl font-bold text-gray-800">{device.device_name}</h1>
+                <p className="text-gray-600 mt-1">Codename: {device.device_codename}</p>
+                <p className="text-gray-600">Brand: {device.device_brand}</p>
+              </div>
+            </div>
 
-        <div className="grid md:grid-cols-2 p-4 gap-4 mt-4 animate__animated animate__fadeInUp animate__delay-1s">
-          <div className="border border-neutral-300 rounded-lg p-4 bg-white">
-            <h3 className="flex items-center gap-2 text-xl font-semibold pb-3 border-b border-neutral-300">
-              <TbDeviceMobileCode size={23}/> Build Info
-            </h3>
-            <div className="mt-4 text-base  flex flex-col gap-1">
-              <p>Release Frequency: <span className="font-mono text-neutral-600">{data.release_frequency}</span></p>
-              <p>Require Custom Recovery: <span className="font-mono text-neutral-600">{data.require_custom_recovery}</span></p>
-              <p>Maintainer: <span className="font-mono text-neutral-600">{data.maintainer_name}</span></p>
+            {/* Tabs */}
+            <div className="mt-6 flex flex-wrap gap-2 justify-center md:justify-start">
+              {device.device_build.map((build, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleTabClick(index)}
+                  className={`px-4 py-2 rounded-lg font-medium ${
+                    index === selectedBuildIndex ? "bg-cyan-600 text-white" : "bg-gray-200 text-gray-800"
+                  } transition-colors duration-300`}
+                >
+                  {build.version}
+                </button>
+              ))}
+            </div>
+
+            {/* Maintainer Section */}
+            <div className="mt-6">
+              <h2 className="text-lg font-semibold text-gray-800">Maintainer</h2>
+              <div className="flex items-center space-x-3 mt-2">
+                <div className="w-10 h-10 rounded-full bg-cyan-600 text-white flex items-center justify-center">
+                  <span className="text-lg font-bold">{selectedBuild.maintainer_name[0].toUpperCase()}</span>
+                </div>
+                <p className="text-gray-700 font-medium">{selectedBuild.maintainer_name}</p>
+              </div>
+            </div>
+
+            {/* Download Section */}
+            <div className="mt-3">
+              <hr/>
+              <div className="mt-2 mb-3">
+                <Link
+                  href={selectedBuild.download_link}
+                  className="w-32 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center cursor-pointer"
+                >
+                  <span className="mr-2">Download</span>
+                  <TbDownload size={22} />
+                </Link>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-2 items-center">
-            <Link
-            href={currentBuild.download_link}
-            className="inline-flex justify-center items-center gap-2 rounded-lg py-2 px-3 font-semibold outline-2
-            outline-offset-2 transition-colors bg-emerald-500 text-white hover:bg-emerald-600 active:text-white/80 w-full">
-              <FaDownload /> Download
-            </Link>
-            <Link
-            href="/gallery"
-            className="inline-flex justify-center items-center gap-2 rounded-lg py-2 px-3 font-semibold outline-2
-            outline-offset-2 transition-colors bg-transparent text-neutral-600 hover:shadow-md border-neutral-300 border-2 active:text-white/80 w-full">
-              <MdOutlineScreenshot size={20}/> Screenshot
-            </Link>
+          {/* Right Column */}
+          <div className="lg:w-1/2 mt-6 lg:mt-0">
+            {/* Changelog Section */}
+            <div>
+              <h2 className="text-lg font-semibold text-gray-800 mb-2">Changelogs</h2>
+              <hr className=""/>
+              <div className="mt-4 text-gray-700 changelog-content">
+                {changelogError ? (
+                  <p>Failed to load changelog</p>
+                ) : !changelog ? (
+                  <p>Loading changelog...</p>
+                ) : (
+                  <ReactMarkdown>{changelog}</ReactMarkdown>
+                )}
+              </div>
+            </div>
           </div>
         </div>
-        <h2 className="ch text-xl font-bold border-b border-neutral-300 mt-4 md:mt-8 pb-2 p-4 animate__animated animate__fadeInUp animate__delay-1s">
-          Changelogs
-        </h2>
-        <article className="prose prose-headings:text-sm prose-headings:text-neutral-800 mt-2 md:mt-4 text-neutral-600 p-4">
-        { changelog === "error" ?
-        <div className="ch flex items-center gap-2 text-red-600">
-          <MdErrorOutline size={25} />
-          <p className="ch animate__animated animate__fadeInLeft animate__delay-1s">Error fetching changelogs</p>
-        </div> :
-        <div dangerouslySetInnerHTML={{ __html: changelog }} />}
-      </article>
       </div>
-
     </div>
-  )
+  );
 }
 
 export default Page;

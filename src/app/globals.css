@@ -10,10 +10,6 @@
   --navbar-color-text: #000000;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 #particles {
   position: absolute;
   top: 0;
@@ -24,6 +20,47 @@ html {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+.changelog-content {
+  line-height: 1.6;
+}
+
+.changelog-content h1,
+.changelog-content h2,
+.changelog-content h3,
+.changelog-content h4,
+.changelog-content h5,
+.changelog-content h6 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.changelog-content ul,
+.changelog-content ol {
+  padding-left: 1.5em;
+  margin-bottom: 1em;
+}
+
+.changelog-content li {
+  margin-bottom: 0.5em;
+  list-style: none;
+  position: relative;
+  padding-left: 1.2em;
+}
+
+.changelog-content li::before {
+  content: '*';
+  font-size: 1.5em;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  color: var(--primary-color);
+}
+
+.changelog-content p {
+  margin-bottom: 1em;
 }
 
 /* loading */

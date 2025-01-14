@@ -71,7 +71,7 @@ const DeviceList = () => {
         </p>
       </div>
       <div className="flex flex-col lg:flex-row gap-4 md:gap-8">
-        <div className="w-full md:w-auto">
+        <div className="w-full md:w-1/4">
           <div className="bg-cyan-50 rounded-md p-4 md:p-6">
             <div className="mb-6">
               <label className="block mb-2 font-medium text-gray-700">Search by name or codename</label>
@@ -88,8 +88,8 @@ const DeviceList = () => {
             </div>
             <div>
               <label className="block mb-2 font-semibold text-gray-700">Brand</label>
-              <div className="flex flex-wrap gap-2 sticky">
-                {["All", "Nothing-phone", "Xiaomi"].map((brand) => (
+              <div className="flex flex-wrap gap-2 sticky max-w-full">
+                {["All", "Nothing-phone", "Google", "Xiaomi"].map((brand) => (
                   <button
                     key={brand}
                     onClick={() => handleBrandSelect(brand)}
@@ -108,7 +108,7 @@ const DeviceList = () => {
         </div>
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           {loading ? (
-            <Loading />
+            <p className="text-md font-medium min-h-screen">Loading....</p>
           ) : devices.length > 0 ? (
             devices.map((device) => (
               <Link href={`/device/${device.slug}`} key={device.device_codename} className="bg-white hover:bg-cyan-50 rounded-md overflow-hidden transition-shadow duration-300 shadow-sm hover:shadow-md">
@@ -122,7 +122,7 @@ const DeviceList = () => {
                   </div>
                   <div className="flex flex-col justify-center">
                     <h2 className="font-semibold text-base md:text-lg text-cyan-700">{device.device_name}</h2>
-                    <p className="text-xs md:text-sm text-gray-900">{device.device_codename}</p>
+                    <p className="text-xs md:text-sm font-medium text-gray-900">{device.device_codename}</p>
                   </div>
                 </div>
               </Link>

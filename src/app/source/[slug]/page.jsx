@@ -45,7 +45,7 @@ const page = async ({params}) => {
   const source = await getSource(params.slug);
 
   return (
-    <div className="mx-auto px-4 md:px-8  py-10 md:py-24">
+    <div className="mx-auto px-4 md:px-8 py-10 md:py-24">
       <div className="flex flex-col lg:flex-row lg:space-x-8">
         {/* Sticky Card */}
         <div className="order-1 lg:order-2 lg:w-1/3 lg:pr-8">
@@ -94,8 +94,8 @@ const page = async ({params}) => {
               }`}
             >
               {source.changes.map((change, index) => (
-                <li key={index} className="flex items-center w-full md:w-1/2">
-                  <PiCheckBold size={20} className="mr-3 text-cyan-600 flex-shrink-0" />
+                <li key={index} className="flex items-start space-x-1 w-full md:w-1/2">
+                  <span className="text-cyan-500">✱</span>
                   <span>{change}</span>
                 </li>
               ))}
