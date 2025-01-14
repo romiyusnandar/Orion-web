@@ -7,7 +7,6 @@ import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import useSWR from 'swr';
 
-
 const fetcher = (...args) => fetch(...args).then(res => res.json());
 
 const Page = async ({params}) => {
