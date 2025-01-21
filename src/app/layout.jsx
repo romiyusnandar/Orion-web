@@ -19,6 +19,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5486819455549234"
+      crossOrigin="anonymous"></script>
+      <meta name="google-adsense-account" content="ca-pub-5486819455549234"></meta>
       <body className={jakarta.className}>
         <Navbar />
         <main className="pt-20 md:pt-12">
