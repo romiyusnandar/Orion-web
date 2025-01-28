@@ -2,32 +2,69 @@
 
 import Link from "next/link";
 import { TbDownload } from "react-icons/tb";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
-import useSWR from 'swr';
 
-const fetcher = (...args) => fetch(...args).then(res => res.json());
-
-const Page = async ({params}) => {
+const page = ({ params }) => {
   const [selectedBuildIndex, setSelectedBuildIndex] = useState(0);
+  const [device, setDevice] = useState(null);
+  const [changelog, setChangelog] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [changelogLoading, setChangelogLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const { data: device, error: deviceError } = useSWR(
-    `https://orion-apiv1.vercel.app/device/${params.slug}`,
-    fetcher
-  );
+  useEffect(() => {
+    const fetchDevice = async () => {
+      try {
+        const response = await fetch(`https://orion-apiv1.vercel.app/device/${params.slug}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setDevice(data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching device data:", error);
+        setError("Failed to load device data");
+        setLoading(false);
+      }
+    };
 
-  const { data: changelog, error: changelogError } = useSWR(
-    () => device && device.device_build[selectedBuildIndex].device_changelog,
-    url => fetch(url).then(res => res.text())
-  );
+    fetchDevice();
+  }, [params.slug]);
 
-  if (deviceError) <p className="text-center text-xl font-medium py-16 min-h-screen">Failed to load data.</p>;
-  if (!device) return <p className="text-center text-xl font-medium py-16 min-h-screen">Loading...</p>;
+  useEffect(() => {
+    const fetchChangelog = async () => {
+      if (device && device.device_build[selectedBuildIndex]) {
+        setChangelogLoading(true);
+        try {
+          const response = await fetch(device.device_build[selectedBuildIndex].device_changelog);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const text = await response.text();
+          setChangelog(text);
+        } catch (error) {
+          console.error("Error fetching changelog:", error);
+          setChangelog("Failed to load changelog");
+        } finally {
+          setChangelogLoading(false);
+        }
+      }
+    };
+
+    fetchChangelog();
+  }, [device, selectedBuildIndex]);
 
   const handleTabClick = (index) => {
     setSelectedBuildIndex(index);
+    setChangelog(null);
   };
+
+  if (loading) return <p className="text-center text-xl font-medium py-16 min-h-screen">Loading...</p>;
+  if (error) return <p className="text-center text-xl font-medium py-16 min-h-screen">{error}</p>;
+  if (!device) return null;
 
   const selectedBuild = device.device_build[selectedBuildIndex];
 
@@ -103,10 +140,12 @@ const Page = async ({params}) => {
               <h2 className="text-lg font-semibold text-gray-800 mb-2">Changelogs</h2>
               <hr className=""/>
               <div className="mt-4 text-gray-700 changelog-content">
-                {changelogError ? (
-                  <p>Failed to load changelog</p>
-                ) : !changelog ? (
+                {changelogLoading ? (
                   <p>Loading changelog...</p>
+                ) : changelog === null ? (
+                  <p>No changelog available</p>
+                ) : changelog === "Failed to load changelog" ? (
+                  <p>{changelog}</p>
                 ) : (
                   <ReactMarkdown>{changelog}</ReactMarkdown>
                 )}
@@ -119,4 +158,4 @@ const Page = async ({params}) => {
   );
 }
 
-export default Page;
+export default page;
