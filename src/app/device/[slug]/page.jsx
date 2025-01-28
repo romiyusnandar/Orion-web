@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 
-const page = ({ params }) => {
+const Page = ({ params }) => {
   const [selectedBuildIndex, setSelectedBuildIndex] = useState(0);
   const [device, setDevice] = useState(null);
   const [changelog, setChangelog] = useState(null);
@@ -158,4 +158,4 @@ const page = ({ params }) => {
   );
 }
 
-export default page;
+export default Page;
