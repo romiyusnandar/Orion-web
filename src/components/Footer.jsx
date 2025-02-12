@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="flex space-x-6 mb-4 md:mb-0">
-            <Link href="https://github.com/orionos-prjkt" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 transition-colors">
+            <Link href="https://github.com/OrionOS-Project" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 transition-colors">
               <FaGithub size={24} />
             </Link>
             <Link href="https://t.me/OrionOS_prjkt" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gray-200 transition-colors">
@@ -20,7 +20,7 @@ const Footer = () => {
             <p className="text-sm flex items-center justify-center md:justify-start">
               Maintained with <FaHeart className="text-red-500 mx-1" /> by
               <a href="https://github.com/romiyusnandar" className="ml-1 text-cyan-500 hover:underline" target="_blank" rel="noopener noreferrer">
-                romi.yusna
+                RyuDev
               </a>
             </p>
           </div>

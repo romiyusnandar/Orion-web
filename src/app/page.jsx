@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <main className="min-h-screen flex flex-col">
       {/* Section 1 */}
-      <div className="relative min-h-screen bg-gradient-to-br z-0">
+      <div className="relative min-h-screen z-0">
         <ParticlesComponent id="particles" />
         <div className="absolute inset-0 flex items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="container mx-auto max-w-7xl">
@@ -53,19 +53,19 @@ const Home = () => {
               {/* Image Section */}
               <div className="lg:w-1/2 mt-12 lg:mt-0">
                 <div className="z-10 flex gap-6 justify-center">
-                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden ">
+                  <div className="rounded shadow-2xl flex items-center justify-center overflow-hidden ">
                     <Image
-                      src="/orion-fw.jpg"
+                      src="/orion-fw.png"
                       alt="Phone preview 1"
-                      width={160}
+                      width={200}
                       height={320}
                     />
                   </div>
-                  <div className="w-40 h-80 rounded shadow-2xl flex items-center justify-center overflow-hidden ">
+                  <div className="rounded shadow-2xl flex items-center justify-center overflow-hidden ">
                     <Image
-                      src="/orion-fw.jpg"
+                      src="/orion-molecular.png"
                       alt="Phone preview 2"
-                      width={160}
+                      width={200}
                       height={320}
                     />
                   </div>
