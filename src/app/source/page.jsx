@@ -20,7 +20,7 @@ const page = async () => {
         {data.map((source, index) => (
           <Link href={`/source/${source.slug}`} key={index}>
             <div className="cursor-pointer flex flex-col">
-              <div className="relative h-48 group w-full">
+              <div className="relative h-56 lg:h-48 group w-full">
                 <Image
                   src={source.img}
                   alt={source.codename}
