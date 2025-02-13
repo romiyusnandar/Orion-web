@@ -191,7 +191,7 @@ const Home = () => {
 
             <div className="flex flex-row gap-4 justify-start">
               <Link
-                href="https://forms.gle/bQPfMDCM5ToVnjBGA"
+                href="https://forms.gle/fCXWCRs8VPMU5VjX6"
                 target="_blank"
                 className="px-4 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-200 flex items-center justify-center cursor-pointer"
               >
