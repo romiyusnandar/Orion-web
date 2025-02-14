@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { TbDownload } from "react-icons/tb";
+import { Menu } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
@@ -69,7 +71,7 @@ const Page = ({ params }) => {
   const selectedBuild = device.device_build[selectedBuildIndex];
 
   return (
-    <div className="mx-auto px-4 md:px-8 py-10 md:py-24">
+    <div className="mx-auto px-4 md:px-8 py-10 md:py-24 min-h-screen">
       <div className="max-w-6xl px-0 md:px-4">
         <div className="flex flex-col lg:flex-row lg:space-x-8">
           {/* Left Column */}
@@ -122,16 +124,52 @@ const Page = ({ params }) => {
             <div className="mt-3">
               <hr/>
               <div className="mt-2 mb-3">
-                <Link
-                  href={selectedBuild.download_link}
-                  className="w-32 bg-cyan-600 text-white py-2 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center cursor-pointer"
-                >
-                  <span className="mr-2">Download</span>
-                  <TbDownload size={22} />
-                </Link>
+                <Menu as="div" className="relative inline-block text-left">
+                  <div>
+                    <Menu.Button className="w-32 bg-cyan-600 text-white py-2 px-4 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center cursor-pointer">
+                      <span className="mr-2">Download</span>
+                      <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+                    </Menu.Button>
+                  </div>
+
+                  <Menu.Items className="absolute left-full top-0 z-10 ml-2 w-56 origin-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">
+                      {selectedBuild.download_links.gapps && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href={selectedBuild.download_links.gapps}
+                              className={`${
+                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                              } flex px-4 py-2 text-sm`}
+                            >
+                              <TbDownload size={20} className="mr-3" />
+                              GApps Version
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
+                      {selectedBuild.download_links.vanilla && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href={selectedBuild.download_links.vanilla}
+                              className={`${
+                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                              } flex px-4 py-2 text-sm`}
+                            >
+                              <TbDownload size={20} className="mr-3" />
+                              Vanilla Version
+                            </a>
+                          )}
+                        </Menu.Item>
+                      )}
+                    </div>
+                  </Menu.Items>
+                </Menu>
+              </div>
               </div>
             </div>
-          </div>
 
           {/* Right Column */}
           <div className="lg:w-1/2 mt-6 lg:mt-0">
