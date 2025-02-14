@@ -60,8 +60,10 @@ const Page = ({ params }) => {
   }, [device, selectedBuildIndex]);
 
   const handleTabClick = (index) => {
-    setSelectedBuildIndex(index);
-    setChangelog(null);
+    if (index !== selectedBuildIndex) {
+      setSelectedBuildIndex(index);
+      setChangelog(null);
+    }
   };
 
   if (loading) return <p className="text-center text-xl font-medium py-16 min-h-screen">Loading...</p>;
@@ -103,6 +105,7 @@ const Page = ({ params }) => {
                   className={`px-4 py-2 rounded-lg font-medium ${
                     index === selectedBuildIndex ? "bg-cyan-600 text-white" : "bg-gray-200 text-gray-800"
                   } transition-colors duration-300`}
+                  disabled={index === selectedBuildIndex}
                 >
                   {build.version}
                 </button>
@@ -121,55 +124,63 @@ const Page = ({ params }) => {
             </div>
 
             {/* Download Section */}
-            <div className="mt-3">
-              <hr/>
-              <div className="mt-2 mb-3">
-                <Menu as="div" className="relative inline-block text-left">
-                  <div>
-                    <Menu.Button className="w-32 bg-cyan-600 text-white py-2 px-4 rounded-md font-medium hover:bg-cyan-700 transition-all duration-300 shadow-lg hover:shadow-xl flex justify-center items-center cursor-pointer">
-                      <span className="mr-2">Download</span>
-                      <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
-                    </Menu.Button>
-                  </div>
+            {/* Download Section */}
+            <div className="mt-6">
+              <h2 className="text-lg font-semibold text-gray-800 mb-3">Download</h2>
+              <Menu as="div" className="relative inline-block text-left">
+                <div>
+                  <Menu.Button className="w-full md:w-48 bg-cyan-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-cyan-700 transition-all duration-300 shadow-md hover:shadow-lg flex justify-between items-center">
+                    <span className="flex items-center">
+                      <TbDownload size={20} className="mr-2" />
+                      Download
+                    </span>
+                    <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+                  </Menu.Button>
+                </div>
 
-                  <Menu.Items className="absolute left-full top-0 z-10 ml-2 w-56 origin-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
-                      {selectedBuild.download_links.gapps && (
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href={selectedBuild.download_links.gapps}
-                              className={`${
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                              } flex px-4 py-2 text-sm`}
-                            >
-                              <TbDownload size={20} className="mr-3" />
-                              GApps
-                            </a>
-                          )}
-                        </Menu.Item>
-                      )}
-                      {selectedBuild.download_links.vanilla && (
-                        <Menu.Item>
-                          {({ active }) => (
-                            <a
-                              href={selectedBuild.download_links.vanilla}
-                              className={`${
-                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                              } flex px-4 py-2 text-sm`}
-                            >
-                              <TbDownload size={20} className="mr-3" />
-                              Vanilla
-                            </a>
-                          )}
-                        </Menu.Item>
-                      )}
-                    </div>
-                  </Menu.Items>
-                </Menu>
-              </div>
-              </div>
+                <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  <div className="py-1">
+                    {selectedBuild.download_links.gapps && (
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href={selectedBuild.download_links.gapps}
+                            className={`${
+                              active ? 'bg-gray-100 text-cyan-600' : 'text-gray-700'
+                            } group flex items-center px-4 py-3 text-sm transition-colors duration-150`}
+                          >
+                            <TbDownload size={20} className="mr-3 text-cyan-500" />
+                            <span>
+                              Download GApps
+                              <span className="block text-xs text-gray-500">With Google Apps</span>
+                            </span>
+                          </a>
+                        )}
+                      </Menu.Item>
+                    )}
+                    {selectedBuild.download_links.vanilla && (
+                      <Menu.Item>
+                        {({ active }) => (
+                          <a
+                            href={selectedBuild.download_links.vanilla}
+                            className={`${
+                              active ? 'bg-gray-100 text-cyan-600' : 'text-gray-700'
+                            } group flex items-center px-4 py-3 text-sm transition-colors duration-150`}
+                          >
+                            <TbDownload size={20} className="mr-3 text-cyan-500" />
+                            <span>
+                              Download Vanilla
+                              <span className="block text-xs text-gray-500">Without Google Apps</span>
+                            </span>
+                          </a>
+                        )}
+                      </Menu.Item>
+                    )}
+                  </div>
+                </Menu.Items>
+              </Menu>
             </div>
+          </div>
 
           {/* Right Column */}
           <div className="lg:w-1/2 mt-6 lg:mt-0">
