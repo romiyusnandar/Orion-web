@@ -2,6 +2,7 @@
 const nextConfig = {
   // output: "export",
   images: {
+    domains: ['i.ibb.co.com'],
     // unoptimized: true,
     remotePatterns: [
       {
