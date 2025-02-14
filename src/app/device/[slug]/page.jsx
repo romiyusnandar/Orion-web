@@ -144,7 +144,7 @@ const Page = ({ params }) => {
                               } flex px-4 py-2 text-sm`}
                             >
                               <TbDownload size={20} className="mr-3" />
-                              GApps Version
+                              GApps
                             </a>
                           )}
                         </Menu.Item>
@@ -159,7 +159,7 @@ const Page = ({ params }) => {
                               } flex px-4 py-2 text-sm`}
                             >
                               <TbDownload size={20} className="mr-3" />
-                              Vanilla Version
+                              Vanilla
                             </a>
                           )}
                         </Menu.Item>
