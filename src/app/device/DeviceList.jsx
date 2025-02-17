@@ -89,7 +89,7 @@ const DeviceList = () => {
             <div>
               <label className="block mb-2 font-semibold text-gray-700">Brand</label>
               <div className="flex flex-wrap gap-2 sticky max-w-full">
-                {["All", "Nothing-phone", "Google", "Xiaomi"].map((brand) => (
+                {["All", "Itel", "Nothing-phone", "Google", "Xiaomi"].map((brand) => (
                   <button
                     key={brand}
                     onClick={() => handleBrandSelect(brand)}
