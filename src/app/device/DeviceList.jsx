@@ -63,7 +63,7 @@ const DeviceList = () => {
   };
 
   return (
-    <div className="p-4 min-h-0 md:min-h-screen md:p-16">
+    <div className="p-4 min-h-screen md:p-16">
       <div className="py-8">
         <h1 className="text-2xl md:text-3xl font-bold">Devices</h1>
         <p className="text-lg mb-1 md:mb-6">
