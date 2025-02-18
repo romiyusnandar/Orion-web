@@ -124,7 +124,6 @@ const Page = ({ params }) => {
             </div>
 
             {/* Download Section */}
-            {/* Download Section */}
             <div className="mt-6">
               <h2 className="text-lg font-semibold text-gray-800 mb-3">Download</h2>
               <Menu as="div" className="relative inline-block text-left">
@@ -138,7 +137,7 @@ const Page = ({ params }) => {
                   </Menu.Button>
                 </div>
 
-                <Menu.Items className="absolute z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute z-10 left-full ml-2 top-0 w-56 origin-top-left rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                   <div className="py-1">
                     {selectedBuild.download_links.gapps && (
                       <Menu.Item>
