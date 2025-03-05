@@ -123,6 +123,13 @@ const DeviceList = () => {
                   <div className="flex flex-col justify-center">
                     <h2 className="font-semibold text-base md:text-lg text-cyan-700">{device.device_name}</h2>
                     <p className="text-xs md:text-sm font-medium text-gray-900">{device.device_codename}</p>
+                    <div className="mt-2">
+                      <span className={`text-xs px-2 py-1 rounded-full inline-block ${
+                        device.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
+                        {device.status === 'active' ? 'Active maintained' : 'Dropped'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Link>
