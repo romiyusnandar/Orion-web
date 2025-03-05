@@ -127,7 +127,7 @@ const DeviceList = () => {
                       <span className={`text-xs px-2 py-1 rounded-full inline-block ${
                         device.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
                       }`}>
-                        {device.status === 'active' ? 'Active' : 'Inactive'}
+                        {device.status === 'active' ? 'Active' : 'Dropped'}
                       </span>
                     </div>
                   </div>
